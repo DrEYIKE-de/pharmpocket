@@ -4,7 +4,7 @@ from .base import *
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql",
+        "ENGINE": env("PG_ENGINE"),
         "DBNAME": env("PG_DBNAME"),
         "USER": env("PG_USER"),
         "PASSWORD": env("PG_PASSWORD"),

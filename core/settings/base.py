@@ -1,5 +1,8 @@
 import environ
 from pathlib import Path
+import logging 
+import logging.config
+from django.utils.log import DEFAULT_LOGGING
 
 
 env = environ.Env(
@@ -17,7 +20,7 @@ SECRET_KEY = env("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env("DEBUG")
 
-ALLOWED_HOSTS = env("ALLOWED_HOSTS").split(" ")
+ALLOWED_HOSTS = ["localhost", "127.0.0.1", "[::1]"]
 
 
 # Application definition
@@ -118,3 +121,41 @@ MEDIA_ROOT = BASE_DIR / "mediafiles"
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# logging
+
+logger = logging.getLogger(__name__)
+
+LOG_LEVEL = "INFO"
+
+logging.config.dictConfig({
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "console": {
+            "format": "%(asctime)s %(name)-8s %(levelname)-12s %(message)s"
+        },
+        "file": {
+            "format": "%(asctime)s %(name)-8s %(levelname)-12s %(message)s"
+        },
+        "django.server": DEFAULT_LOGGING["formatters"]["django.server"]
+    },
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+            "formatter": "console"
+        },
+        "file": {
+            "class": "logging.FileHandler",
+            "level": "INFO",
+            "formatter": "file",
+            "filename": "logs/pharm_pocket.log"
+        }, 
+        "django.server": DEFAULT_LOGGING["handlers"]["django.server"]
+    },
+    "loggers": {
+        "": {"level": "INFO", "handlers": ["console", "file"], "propagate": False},
+        "apps": {"level": "INFO", "handlers": ["console"], "propagate": False},
+        "django.server": DEFAULT_LOGGING["loggers"]["django.server"]
+    }
+})

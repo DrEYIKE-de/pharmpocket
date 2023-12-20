@@ -38,7 +38,7 @@ DJANGO_APPS = [
 SITE_ID = 1
 
 THIRD_PARTY_APPS = ["rest_framework", "django_filters", "django_countries", "phonenumber_field",]
-LOCAL_APPS = ["apps.users", "apps.posts", "apps.establishments", "apps.profiles",]
+LOCAL_APPS = ["apps.users", "apps.posts", "apps.establishments", "apps.profiles", "apps.utils",]
 
 INSTALLED_APPS = DJANGO_APPS+THIRD_PARTY_APPS+LOCAL_APPS
 
@@ -123,7 +123,7 @@ MEDIA_ROOT = BASE_DIR / "mediafiles"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
-AUTH_USER_MODEL="users.User"
+AUTH_USER_MODEL = "users.User"
 
 # logging
 
